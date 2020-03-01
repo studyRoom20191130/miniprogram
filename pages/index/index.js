@@ -93,7 +93,7 @@ Page({
 
   onLogin() {
     const { username, password } = this.data
-    if (this.data.invite != "坚持记录下去！") {
+    if (this.data.invite != "233") {
       wx.showToast({
         title: "请输入邀请码!",
         icon: "none"

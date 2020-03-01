@@ -6,7 +6,7 @@
             <view class="">
                 <input id="username" type="text"  placeholder="请输入昵称" bindinput="inputUserName" />
                 <input id="password" type="password"  placeholder="请输入密码" bindinput="inputPassword" />
-                <input id="invite-code" type="password"  placeholder="请输入邀请码" bindinput="inputInvite" />
+                <input id="invite-code" type="text"  placeholder="请输入邀请码" bindinput="inputInvite" />
                 <button id="send-data" bindtap="onLogin">登录/注册</button>
             </view>
         </view>
