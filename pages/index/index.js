@@ -93,7 +93,7 @@ Page({
 
   onLogin() {
     const { username, password } = this.data
-    if (this.invite != "坚持记录下去！") {
+    if (this.data.invite != "坚持记录下去！") {
       wx.showToast({
         title: "请输入邀请码!",
         icon: "none"
@@ -130,13 +130,17 @@ Page({
         const { data } = res
         // 存入缓存
         that.__saveToStorage(data)
+        // 跳转页面
+        wx.navigateTo({
+          url: '/pages/logs/logs',
+        })
       }
     })
   },
 
   // 存入缓存
   __saveToStorage(data) {
-    log('save', data)
+    // log('save', data)
     const arr = data.split('-')
     const username = arr[0]
     const password = arr[1]

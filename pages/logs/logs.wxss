@@ -1,8 +1,28 @@
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
+.logs-page {
+  background-color: #ececec;
+  padding: 40rpx 32rpx;
 }
-.log-item {
-  margin: 10rpx;
+
+.form-control {
+  border: 1rpx solid black;
+}
+
+.logs-page__content {
+  text-align: center;
+}
+
+.logs-page__textarea {
+  margin: auto auto 40rpx;
+}
+
+.logs-page__btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logs-page__timer {
+  margin-top: 40rpx;
+  text-align: left;
+  font-size: 40rpx;
+  font-weight: bold;
 }

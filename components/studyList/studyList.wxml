@@ -1,0 +1,17 @@
+<!--components/studyList/studyList.wxml-->
+<!-- <text bindtap="show">components/studyList/studyList.wxml</text> -->
+
+<view class="list">
+  <view class="list-card" wx:for="{{studyList}}">
+    <view class="list-card__header">
+      {{item.user}} -     
+    </view>
+    <view class="list-card__table-header">
+
+    </view>
+    <view class="list-card__detail" wx:for="{{item.table}}" wx:for-item="detail">
+      {{detail.segmentation}}
+    </view>
+  </view>
+
+</view>

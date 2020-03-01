@@ -1,6 +1,36 @@
 <!--logs.wxml-->
-<view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
+<view class="logs-page">
+  <!-- <view class="logs-page__textarea-study-content">
+    <view class="other-time hidden">
+      <view>
+        <span>开始时间: </span>
+        <input type="text" class="form-control" placeholder="直接输入hhmm，如 930" />
+      </view>
+      <view class="inline-block">
+        <span>结束时间: </span>
+        <input type="text" class="form-control" placeholder="直接输入hhmm，如 1030" />
+      </view>
+      <view>
+        <textarea class="form-control" rows="10" placeholder="学习或备注内容"></textarea>
+      </view>
+      <button type="button" class="btn btn-primary">添加</button>
+    </view>
+  </view> -->
+
+  <view class="logs-page__content">
+    <textarea id="textarea-study-content" class="form-control logs-page__textarea" rows="10" placeholder="学习或备注内容"></textarea>
+    <view class="logs-page__btns">
+      <button type="primary" class="btn btn-common  btn-new " bindtap="startTimer">开始</button>
+      <button type="warn" class="btn btn-common btn-new " bindtap="stopTimer">结束</button>
+    </view>
+
+    <view class="logs-page__timer">
+      学习时间: {{start}} - 
+    </view>
+  </view>
+
+  <view class="logs-page__list">
+    <view bindtap="getStudyList">test</view>
+    <studyList studyList="{{studyList}}"/>
+  </view>
 </view>
