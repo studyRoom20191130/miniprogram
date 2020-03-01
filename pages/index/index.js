@@ -1,54 +1,157 @@
-//index.js
-//获取应用实例
-const app = getApp()
-
+const log = console.log.bind(console)
+const {basicUrl} = require('../../utils/basic.js')
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    username: "",
+    password: "",
+    invite: ""
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.__autoLogin()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    
+  },
+
+  inputUserName(e) {
+    const v = e.detail.value
+    // log('value', v)
+    this.setData({
+      username: v
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+
+  inputPassword(e) {
+    const v = e.detail.value
+    // log('value', v)
+    this.setData({
+      password: v
+    })
+  },
+
+  inputInvite(e) {
+    const v = e.detail.value
+    // log('value', v)
+    this.setData({
+      invite: v
+    })
+  },
+
+  onLogin() {
+    const { username, password } = this.data
+    if (this.invite != "坚持记录下去！") {
+      wx.showToast({
+        title: "请输入邀请码!",
+        icon: "none"
       })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
+      return
+    }
+    if (!username || !password) {
+      log('不对')
     } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
+      this.__ajaxLogin(username, password)
     }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+
+  __autoLogin() {
+    const { username, password } = this.__getStorage()
+    if (!username || !password) {
+      log('不对')
+    } else {
+      this.__ajaxLogin(username, password)
+    }
+  },
+
+  // 登录
+  __ajaxLogin(username, password) {
+    const that = this
+    wx.request({
+      url: `${basicUrl}/login`,
+      method: "post",
+      data: {
+        username,
+        password,
+      },
+      success(res) {
+        const { data } = res
+        // 存入缓存
+        that.__saveToStorage(data)
+      }
     })
+  },
+
+  // 存入缓存
+  __saveToStorage(data) {
+    log('save', data)
+    const arr = data.split('-')
+    const username = arr[0]
+    const password = arr[1]
+    wx.setStorageSync('username', username)
+    wx.setStorageSync('password', password)
+  },
+
+  // 读取缓存
+  __getStorage() {
+    const username = wx.getStorageSync('username') || ''
+    const password = wx.getStorageSync('password') || ''
+    // log(username, password)
+    return {
+      username, 
+      password,
+    }
   }
 })

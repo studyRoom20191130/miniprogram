@@ -1,13 +1,14 @@
-<!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view>
+        <view class="dialog dialog-shadow">
+            <h4 class="title">
+                欢迎进入自习室
+            </h4>
+            <view class="">
+                <input id="username" type="text"  placeholder="请输入昵称" bindinput="inputUserName" />
+                <input id="password" type="password"  placeholder="请输入密码" bindinput="inputPassword" />
+                <input id="invite-code" type="password"  placeholder="请输入邀请码" bindinput="inputInvite" />
+                <button id="send-data" bindtap="onLogin">登录/注册</button>
+            </view>
+        </view>
+
+    </view>
